@@ -1,0 +1,144 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Certificates | PortfolioAI</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f6fc;
+            color: #252642;
+        }
+
+        header {
+            background: #6555e9;
+            padding: 20px 7%;
+        }
+
+        header a {
+            color: white;
+            text-decoration: none;
+        }
+
+        main {
+            max-width: 850px;
+            margin: 35px auto;
+            padding: 0 18px;
+        }
+
+        section {
+            background: white;
+            padding: 26px;
+            margin-bottom: 22px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px #2222440a;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin: 15px 0 7px;
+        }
+
+        input {
+            width: 100%;
+            padding: 11px;
+            box-sizing: border-box;
+            border: 1px solid #dddfea;
+            border-radius: 7px;
+            font-size: 15px;
+        }
+
+        button {
+            margin-top: 20px;
+            background: #6555e9;
+            color: white;
+            padding: 12px 20px;
+            border: 0;
+            border-radius: 7px;
+            cursor: pointer;
+        }
+
+        .certificate {
+            padding: 15px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .muted {
+            color: #737790;
+            line-height: 1.6;
+        }
+
+        .certificate a {
+            color: #5141c9;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <a href="/dashboard">← Back to Dashboard</a>
+    </header>
+
+    <main>
+        <section>
+            <h1>My Certificates</h1>
+            <p class="muted">
+                Record certificates from courses, workshops and technical events.
+            </p>
+
+            <form method="POST">
+                <label for="title">Certificate Name *</label>
+                <input id="title" name="title" required
+                       placeholder="e.g. Python Programming">
+
+                <label for="issuer">Issuing Organization</label>
+                <input id="issuer" name="issuer"
+                       placeholder="e.g. NPTEL">
+
+                <label for="date">Date Earned</label>
+                <input id="date" name="date" type="date">
+
+                <label for="certificate_url">Certificate URL</label>
+                <input id="certificate_url" name="certificate_url"
+                       type="url" placeholder="https://example.com/certificate">
+
+                <button type="submit">Save Certificate</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>Saved Certificates</h2>
+
+            {% for certificate in certificates %}
+                <div class="certificate">
+                    <h3>{{ certificate['title'] }}</h3>
+
+                    <p class="muted">
+                        Issuer: {{ certificate['issuer'] or 'Not specified' }}
+                    </p>
+
+                    <p class="muted">
+                        Date: {{ certificate['date'] or 'Not specified' }}
+                    </p>
+
+                    {% if certificate['certificate_url'] %}
+                        <a href="{{ certificate['certificate_url'] }}"
+                           target="_blank" rel="noopener noreferrer">
+                            View Certificate
+                        </a>
+                    {% endif %}
+                </div>
+            {% else %}
+                <p class="muted">
+                    No certificates added yet. Add your first certificate above.
+                </p>
+            {% endfor %}
+        </section>
+    </main>
+</body>
+</html>

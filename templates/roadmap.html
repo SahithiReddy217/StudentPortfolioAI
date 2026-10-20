@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Learning Roadmap</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4fb;
+            color: #252547;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 22px;
+            margin: 18px 0;
+            border-radius: 12px;
+            box-shadow: 0 4px 14px #00000010;
+        }
+
+        .step {
+            border-left: 4px solid #5141a8;
+            padding: 10px 15px;
+            margin: 18px 0;
+            background: #f9f8ff;
+        }
+
+        .button {
+            display: inline-block;
+            background: #5141a8;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+        }
+
+        .muted {
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>My Learning Roadmap</h1>
+
+    <div class="card">
+        <h2>{{ career }}</h2>
+        <p class="muted">
+            Follow these suggested learning steps to work toward
+            your selected career.
+        </p>
+
+        {% if roadmap %}
+            {% for item in roadmap %}
+            <div class="step">
+                <h3>{{ loop.index }}. {{ item["skill"] }}</h3>
+                <p>{{ item["description"] }}</p>
+                <p><strong>Level:</strong> {{ item["level"] }}</p>
+            </div>
+            {% endfor %}
+        {% else %}
+            <p>You have matched all the skills in our example
+            checklist. Consider building a project to practice them.</p>
+        {% endif %}
+    </div>
+
+    <a class="button" href="/skill-analyzer">
+        Back to Skill Analyzer
+    </a>
+
+    <p><a href="/dashboard">Back to Dashboard</a></p>
+
+</div>
+</body>
+</html>

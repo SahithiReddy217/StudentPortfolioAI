@@ -1,0 +1,142 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Career Skill Analyzer</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4fb;
+            margin: 0;
+            padding: 30px;
+            color: #252547;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px #00000010;
+        }
+
+        select, button {
+            padding: 12px;
+            width: 100%;
+            margin-top: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        select {
+            border: 1px solid #ccc;
+        }
+
+        button {
+            background: #5141a8;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+
+        .percentage {
+            font-size: 36px;
+            font-weight: bold;
+            color: #5141a8;
+        }
+
+        .matched {
+            color: #16834a;
+        }
+
+        .missing {
+            color: #c04444;
+        }
+
+        a {
+            color: #5141a8;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>Career & Skill Gap Analyzer</h1>
+    <p>Discover your current skills and what you can learn next.</p>
+
+    <div class="card">
+        <h2>Hello, {{ student["name"] }}!</h2>
+
+        <p><strong>Your saved skills:</strong>
+            {{ student["skills"] or "No skills added yet" }}
+        </p>
+
+        <form method="POST">
+            <label for="career">Choose your target career:</label>
+
+            <select name="career" id="career">
+                {% for career in careers %}
+                <option value="{{ career }}"
+                    {% if career == selected_career %}selected{% endif %}>
+                    {{ career }}
+                </option>
+                {% endfor %}
+            </select>
+
+            <button type="submit">Analyze My Skills</button>
+        </form>
+    </div>
+
+    {% if submitted %}
+    <div class="card">
+        <h2>Your Results</h2>
+
+        <p>Target career: <strong>{{ selected_career }}</strong></p>
+
+        <p class="percentage">{{ match_percentage }}%</p>
+        <p>Skill match based on the selected requirements</p>
+
+        <h3 class="matched">Skills You Already Have</h3>
+        {% if matched_skills %}
+            <ul>
+            {% for skill in matched_skills %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>No matching skills found. Check your saved profile.</p>
+        {% endif %}
+
+        <h3 class="missing">Skills You Could Learn</h3>
+        {% if missing_skills %}
+            <ul>
+            {% for skill in missing_skills %}
+                <li>{{ skill }}</li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p>You have all the skills in this example checklist!</p>
+        {% endif %}
+    </div>
+    {% endif %}
+    
+<a href="{{ url_for('learning_roadmap', career=selected_career) }}"
+   style="display:inline-block; background:#5141a8; color:white; padding:12px 18px; border-radius:8px; text-decoration:none;">
+    Generate My Learning Roadmap
+</a>
+
+
+    <p><a href="/dashboard">Back to Dashboard</a></p>
+
+</div>
+</body>
+</html>

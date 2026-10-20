@@ -1,0 +1,138 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learning Progress | StudentPortfolioAI</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4fb;
+            color: #252547;
+            padding: 25px;
+        }
+
+        .container {
+            max-width: 750px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            margin: 20px 0;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px #00000010;
+        }
+
+        .skill {
+            border: 1px solid #e5e3f3;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        select, button {
+            padding: 11px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        select {
+            border: 1px solid #ccc;
+            max-width: 100%;
+        }
+
+        button, .button {
+            background: #5141a8;
+            color: white;
+            border: none;
+            padding: 12px 18px;
+            border-radius: 8px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .bar {
+            background: #e5e3f3;
+            height: 12px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .fill {
+            background: #5141a8;
+            height: 100%;
+        }
+
+        .muted {
+            color: #666;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <h1>My Learning Progress</h1>
+    <p class="muted">Track your progress toward your career goal.</p>
+
+    <div class="card">
+        <h2>{{ career }}</h2>
+
+        <p>
+            <strong>{{ completed }}</strong> of
+            <strong>{{ total }}</strong> skills completed
+        </p>
+
+        <h3>{{ percentage }}% completed</h3>
+
+        <div class="bar">
+            <div class="fill" style="width: {{ percentage }}%;"></div>
+        </div>
+
+        <form method="POST" style="margin-top: 25px;">
+            <input type="hidden" name="career" value="{{ career }}">
+
+            {% for item in roadmap %}
+            <div class="skill">
+                <h3>{{ loop.index }}. {{ item["skill"] }}</h3>
+
+                <label for="status_{{ loop.index }}">
+                    Learning status:
+                </label>
+
+                <select
+                    id="status_{{ loop.index }}"
+                    name="status_{{ item['skill'] }}">
+
+                    {% for status in
+                        ["Not Started", "In Progress", "Completed"] %}
+                    <option value="{{ status }}"
+                        {% if item["status"] == status %}selected{% endif %}>
+                        {{ status }}
+                    </option>
+                    {% endfor %}
+                </select>
+            </div>
+            {% endfor %}
+
+            <button type="submit">Save My Progress</button>
+        </form>
+    </div>
+
+    <p>
+        <a class="button"
+           href="{{ url_for('skill_analyzer') }}">
+            Back to Skill Analyzer
+        </a>
+    </p>
+
+    <p><a href="{{ url_for('dashboard') }}">Back to Dashboard</a></p>
+
+</div>
+</body>
+</html>

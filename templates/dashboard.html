@@ -1,0 +1,184 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudentPortfolioAI | Dashboard</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f4fb;
+            color: #252547;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        header {
+            background: linear-gradient(135deg, #5141a8, #7665d5);
+            color: white;
+            padding: 30px;
+            border-radius: 16px;
+            margin-bottom: 25px;
+        }
+
+        header h1 {
+            margin-top: 0;
+        }
+
+        .muted {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        header .muted {
+            color: #f0edff;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 24px;
+            border-radius: 14px;
+            box-shadow: 0 4px 14px #00000010;
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 21px;
+        }
+
+        .button {
+            display: inline-block;
+            background: #5141a8;
+            color: white;
+            text-decoration: none;
+            padding: 11px 16px;
+            border-radius: 8px;
+            margin-top: 10px;
+        }
+
+        .button:hover {
+            background: #3e3286;
+        }
+
+        .profile-details p {
+            margin: 10px 0;
+            overflow-wrap: anywhere;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 30px;
+            color: #777;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 15px;
+            }
+
+            header {
+                padding: 22px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+
+    <header>
+        <h1>Welcome, {{ student["name"] }}! 👋</h1>
+        <p class="muted">
+            Your personal student portfolio and career development dashboard.
+        </p>
+    </header>
+
+    <div class="grid">
+
+        <section class="card">
+            <h2>👤 My Profile</h2>
+            <div class="profile-details">
+                <p><strong>Name:</strong> {{ student["name"] }}</p>
+                <p><strong>Email:</strong> {{ student["email"] }}</p>
+                <p><strong>College:</strong> {{ student["college"] or "Not provided" }}</p>
+                <p><strong>Degree:</strong> {{ student["degree"] or "Not provided" }}</p>
+                <p><strong>Career Goal:</strong> {{ student["career"] or "Not provided" }}</p>
+                <p><strong>Skills:</strong> {{ student["skills"] or "Not provided" }}</p>
+            </div>
+            <a class="button" href="/profile">Manage Profile</a>
+        </section>
+
+        <section class="card">
+            <h2>📁 My Projects</h2>
+            <p class="muted">
+                Add your projects, descriptions, technologies, and GitHub links.
+            </p>
+            <a class="button" href="/projects">Manage Projects</a>
+        </section>
+
+        <section class="card">
+            <h2>🏆 My Certificates</h2>
+            <p class="muted">
+                Keep your certifications organized in your portfolio.
+            </p>
+            <a class="button" href="/certificates">Manage Certificates</a>
+        </section>
+
+        <section class="card">
+            <h2>📄 My Resume</h2>
+            <p class="muted">
+                Generate a downloadable PDF resume from your saved information.
+            </p>
+            <a class="button" href="/resume">Download My Resume</a>
+        </section>
+
+        <section class="card">
+            <h2>🎯 Career Skill Analyzer</h2>
+            <p class="muted">
+                Compare your skills with your target career and discover skill gaps.
+            </p>
+            <a class="button" href="/skill-analyzer">Analyze My Skills</a>
+        </section>
+
+        <section class="card">
+            <h2>🗺️ My Learning Roadmap</h2>
+            <p class="muted">
+                View suggested learning steps for your career.
+            </p>
+            <a class="button" href="/roadmap">View Roadmap</a>
+        </section>
+
+        <section class="card">
+            <h2>📈 Learning Progress</h2>
+            <p class="muted">
+                Track skills as Not Started, In Progress, or Completed.
+            </p>
+            <a class="button" href="/progress">Track My Progress</a>
+        </section>
+
+    </div>
+
+    <footer>
+        <p>StudentPortfolioAI · Learn, Build, and Grow</p>
+    </footer>
+
+</div>
+</body>
+</html>
